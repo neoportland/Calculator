@@ -5,7 +5,7 @@ const operator = document.querySelectorAll(".operator");
 const hesapla = document.getElementsByClassName("equal-sign ")[0];
 const temizle = document.getElementsByClassName("clear")[0];
 
-let displayValue = "0";
+let displayValue = "0"; // aşağıda bu değeri herdefasında set edip updatefonksiyonunda tekrar çağırıp basacağım
 updateValue();
 function updateValue() {
   display.value = displayValue;
@@ -20,11 +20,14 @@ keys3.addEventListener("click", function (e) {
     return; // ben bir değere bastım geri kalan kodları çalıştırmana gerek yok
   }
   if (element.classList.contains("decimal")) {
-    console.log("decimal basıldı ", element.value);
+    inputDecimal(element.value); //
+    updateValue(); // her defasında ekranı düzenlemek için tekrar tekrar çağırdığım kod
     return;
   }
   if (element.classList.contains("clear")) {
     console.log("clear basıldı ", element.value);
+    inputClear();
+    updateValue();
     return;
   }
 
@@ -34,4 +37,14 @@ keys3.addEventListener("click", function (e) {
 
 function inputNumber(event) {
   displayValue = displayValue === "0" ? event : displayValue + event;
+}
+function inputDecimal(event) {
+  if (!displayValue.includes(".")) {
+    displayValue = displayValue + event;
+  } else {
+    console.log("  zaten basmıştınız");
+  }
+}
+function inputClear() {
+  displayValue = "0";
 }
